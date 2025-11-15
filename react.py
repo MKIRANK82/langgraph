@@ -18,7 +18,3 @@ tools = [TavilySearch(max_results=1), triple]
 
 llm = ChatOpenAI(model="gpt-4o-mini", temperature=0).bind_tools(tools)
 
-pprint(llm)
-
-with open("a.txt","w") as f1:
-    f1.write(f"{llm}")
