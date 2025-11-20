@@ -18,15 +18,15 @@ class MessageGraph(TypedDict):
 REFLECT = "reflect"
 GENERATE = "generate"
 
+
 def fancy_box(text):
     length = len(text)
-    print("╔" + "═"*(length + 2) + "╗")
+    print("╔" + "═" * (length + 2) + "╗")
     print("║ " + text + " ║")
-    print("╚" + "═"*(length + 2) + "╝")
+    print("╚" + "═" * (length + 2) + "╝")
 
     with open("reflect_agent/logs.txt", "a") as f:
-        f.write(text + "\n"*5)
-
+        f.write(text + "\n" * 5)
 
 
 def generation_node(state: MessageGraph):
@@ -53,14 +53,13 @@ def should_continue(state: MessageGraph):
     return REFLECT
 
 
-builder.add_conditional_edges(GENERATE, should_continue,{END: END, REFLECT: REFLECT})
+builder.add_conditional_edges(GENERATE, should_continue, {END: END, REFLECT: REFLECT})
 builder.add_edge(REFLECT, GENERATE)
 
 graph = builder.compile()
 print(graph.get_graph().draw_mermaid())
 
 graph.get_graph().draw_mermaid_png(output_file_path="reflect_agent/agent_flow.png")
-
 
 
 if __name__ == "__main__":
